@@ -11,22 +11,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    signingConfigs {
-        release {
-            // Use debug keystore for signing so APK installs on phones.
-            // For Play Store, replace with a real release keystore.
-            storeFile file("${System.getProperty('user.home')}/.android/debug.keystore")
-            storePassword "android"
-            keyAlias "androiddebugkey"
-            keyPassword "android"
-        }
-    }
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.release
-        }
-        debug {
+            // Use built-in debug signing so APK installs on phones.
+            // For Play Store, replace with a real release keystore.
             signingConfig signingConfigs.debug
         }
     }
