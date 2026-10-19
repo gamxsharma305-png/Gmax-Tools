@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "GMAX Tools",
+    "slug": "gmax-tools",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0b0d11",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b0d11"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gmax.tools",
+      "infoPlist": {
+        "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511"
+      }
+    },
+    "android": {
+      "package": "com.gmax.tools",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundColor": "#0b0d11"
+      },
+      "permissions": [
+        "INTERNET",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO",
+        "READ_MEDIA_VISUAL_USER_SELECTED",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-splash-screen",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "replace-with-your-eas-project-id"
+      }
+    }
+  }
+}

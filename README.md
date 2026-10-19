@@ -1,9 +1,21 @@
-# GMAX Tools — Free Online Tools App
+# GMAX Tools — Expo + Full AdMob
 
-50+ free tools in one app: Image Enhancer (4K), Video Enhancer (4K), Image Resizer, Cropper, Converter, QR Generator, Color Tools, Calculators, and more. All run 100% offline in the app.
+## Ad Placement
 
-## Build APK
+| Ad Type | When |
+|---------|------|
+| **App Open Ad** | App open + return from background |
+| **Rewarded Ad x2** | On Export / Download (Image/Video enhance) |
+| **Banner Ad** | Fixed bottom under every tool |
+| **Interstitial** | Every 5th tool open |
 
-Push to GitHub → Actions → Build APK → Download `gmax-tools-apk` artifact.
+## Build from expo.dev (no computer needed)
 
-## Made by GMAX
+1. Open https://expo.dev and login
+2. Create project from this GitHub repo
+3. Builds → Create a build → Android → production (AAB) or preview (APK)
+
+## Package
+`com.gmax.tools`
+
+Replace Test AdMob IDs in App.tsx and app.json before production.
