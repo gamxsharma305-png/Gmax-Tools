@@ -29,7 +29,7 @@ import {
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
 // ========== Real AdMob Unit IDs ==========
-// App ID is set in app.json (ca-app-pub-9732328082053328~9468099318)
+// App ID: ca-app-pub-9732328082053328~9468099318 (in app.json)
 const BANNER_ID = __DEV__
   ? TestIds.BANNER
   : 'ca-app-pub-9732328082053328/2413173160';
@@ -38,17 +38,16 @@ const REWARDED_ID = __DEV__
   ? TestIds.REWARDED
   : 'ca-app-pub-9732328082053328/4739953605';
 
-// Interstitial + App Open: create units in AdMob and replace these
+const APP_OPEN_ID = __DEV__
+  ? TestIds.APP_OPEN
+  : 'ca-app-pub-9732328082053328/3889906360';
+
+// Interstitial: create unit in AdMob and replace
 const INTERSTITIAL_ID = __DEV__
   ? TestIds.INTERSTITIAL
   : 'ca-app-pub-9732328082053328/INTERSTITIAL_REPLACE';
 
-const APP_OPEN_ID = __DEV__
-  ? TestIds.APP_OPEN
-  : 'ca-app-pub-9732328082053328/APPOPEN_REPLACE';
-
-// Native ID (saved for later if needed):
-// ca-app-pub-9732328082053328/5841457296
+// Native (saved): ca-app-pub-9732328082053328/5841457296
 
 const interstitial = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
   requestNonPersonalizedAdsOnly: true,
