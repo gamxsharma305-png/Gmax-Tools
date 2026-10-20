@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.gmax.tools",
       "infoPlist": {
-        "GADApplicationIdentifier": "ca-app-pub-3940256099942544~1458002511"
+        "GADApplicationIdentifier": "ca-app-pub-9732328082053328~9468099318"
       }
     },
     "android": {
@@ -45,8 +45,8 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+          "androidAppId": "ca-app-pub-9732328082053328~9468099318",
+          "iosAppId": "ca-app-pub-9732328082053328~9468099318"
         }
       ]
     ],
