@@ -28,13 +28,28 @@ import {
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
-// ========== Ad Unit IDs (Test IDs in __DEV__) ==========
-const BANNER_ID = __DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxx/BANNER';
-const INTERSTITIAL_ID = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxx/INTER';
-const REWARDED_ID = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-xxxxxxxx/REWARDED';
-const APP_OPEN_ID = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-xxxxxxxx/APPOPEN';
+// ========== Real AdMob Unit IDs ==========
+// App ID is set in app.json (ca-app-pub-9732328082053328~9468099318)
+const BANNER_ID = __DEV__
+  ? TestIds.BANNER
+  : 'ca-app-pub-9732328082053328/2413173160';
 
-// Create ad instances
+const REWARDED_ID = __DEV__
+  ? TestIds.REWARDED
+  : 'ca-app-pub-9732328082053328/4739953605';
+
+// Interstitial + App Open: create units in AdMob and replace these
+const INTERSTITIAL_ID = __DEV__
+  ? TestIds.INTERSTITIAL
+  : 'ca-app-pub-9732328082053328/INTERSTITIAL_REPLACE';
+
+const APP_OPEN_ID = __DEV__
+  ? TestIds.APP_OPEN
+  : 'ca-app-pub-9732328082053328/APPOPEN_REPLACE';
+
+// Native ID (saved for later if needed):
+// ca-app-pub-9732328082053328/5841457296
+
 const interstitial = InterstitialAd.createForAdRequest(INTERSTITIAL_ID, {
   requestNonPersonalizedAdsOnly: true,
 });
@@ -58,7 +73,6 @@ export default function App() {
   const hasShownAppOpen = useRef(false);
   const pendingExportResolve = useRef<(() => void) | null>(null);
 
-  // ---------- Load HTML + Init Ads ----------
   useEffect(() => {
     let mounted = true;
 
@@ -76,13 +90,10 @@ export default function App() {
       }
     })();
 
-    // Rewarded listeners
     const rLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
       setRewardedReady(true);
     });
-    const rEarned = rewarded.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {
-      // user watched the ad
-    });
+    const rEarned = rewarded.addAdEventListener(RewardedAdEventType.EARNED_REWARD, () => {});
     const rClosed = rewarded.addAdEventListener(AdEventType.CLOSED, () => {
       setRewardedReady(false);
       rewarded.load();
@@ -101,7 +112,6 @@ export default function App() {
       }
     });
 
-    // Interstitial listeners
     const iLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => setInterReady(true));
     const iClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
       setInterReady(false);
@@ -109,7 +119,6 @@ export default function App() {
     });
     const iError = interstitial.addAdEventListener(AdEventType.ERROR, () => setInterReady(false));
 
-    // App Open listeners
     const aLoaded = appOpenAd.addAdEventListener(AdEventType.LOADED, () => setAppOpenReady(true));
     const aClosed = appOpenAd.addAdEventListener(AdEventType.CLOSED, () => {
       setAppOpenReady(false);
@@ -117,7 +126,6 @@ export default function App() {
     });
     const aError = appOpenAd.addAdEventListener(AdEventType.ERROR, () => setAppOpenReady(false));
 
-    // Preload all
     rewarded.load();
     interstitial.load();
     appOpenAd.load();
@@ -130,7 +138,6 @@ export default function App() {
     };
   }, []);
 
-  // ---------- App Open Ad (every cold / warm start) ----------
   useEffect(() => {
     const handleAppState = (next: AppStateStatus) => {
       if (
