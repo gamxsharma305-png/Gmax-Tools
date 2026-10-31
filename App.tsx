@@ -185,10 +185,12 @@ export default function App() {
     return () => sub.remove();
   }, [canGoBack]);
 
+  // Show 2 rewarded ads in a row, then resolve
   const showTwoRewardedThenContinue = useCallback(async () => {
     const showOne = () =>
       new Promise<void>((resolve) => {
         if (!rewardedReady) {
+          // Ad not ready — still continue so user is not stuck
           resolve();
           return;
         }
@@ -197,7 +199,9 @@ export default function App() {
       });
 
     await showOne();
-    await new Promise((r) => setTimeout(r, 400));
+    await new Promise((r) => setTimeout(r, 500));
+    // reload may still be in progress; wait a bit for LOADED
+    await new Promise((r) => setTimeout(r, 600));
     await showOne();
   }, [rewardedReady]);
 
@@ -205,7 +209,12 @@ export default function App() {
     async (event: WebViewMessageEvent) => {
       try {
         const data = JSON.parse(event.nativeEvent.data);
-        if (data?.type === 'EXPORT_CLICK' || data?.type === 'DOWNLOAD_CLICK') {
+        // Export/Download buttons OR Generate Premium Code — both need 2 rewarded ads
+        if (
+          data?.type === 'EXPORT_CLICK' ||
+          data?.type === 'DOWNLOAD_CLICK' ||
+          data?.type === 'GENERATE_CODE'
+        ) {
           await showTwoRewardedThenContinue();
           webRef.current?.injectJavaScript(`
             window.__gmaxExportUnlocked = true;
